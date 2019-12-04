@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Tweets from './Tweets';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+	state = {
+		tweets: [
+			{ id: 1, name: 'Ted', tweet: 'balakajan', numOfLikes: 1 },
+			{ id: 2, name: 'Yema', tweet: 'penge dentastix', numOfLikes: 2 },
+			{ id: 3, name: 'Ed', tweet: 'aral pa boy', numOfLikes: 3 }
+		]
+	};
+
+	addLikesHandler = (liker) => {
+		const tweets = [ ...this.state.tweets ];
+		const index = tweets.indexOf(liker);
+		tweets[index] = { ...liker };
+		tweets[index].numOfLikes++;
+		this.setState({ tweets: tweets });
+	};
+
+	render() {
+		return (
+			<React.Fragment>
+				<main className="container">
+					<Tweets tweets={this.state.tweets} onIncrement={this.addLikesHandler} />
+				</main>
+			</React.Fragment>
+		);
+	}
 }
 
 export default App;
