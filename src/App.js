@@ -19,11 +19,25 @@ class App extends Component {
 		this.setState({ tweets: tweets });
 	};
 
+	resetLikesHandler = () => {
+		const tweets = this.state.tweets.map((t) => {
+			t.numOfLikes = 0;
+			return t;
+		});
+		this.setState({ tweets: tweets });
+	};
+
 	render() {
 		return (
 			<React.Fragment>
 				<main className="container">
-					<Tweets tweets={this.state.tweets} onIncrement={this.addLikesHandler} />
+					<div>
+						<Tweets
+							tweets={this.state.tweets}
+							onIncrement={this.addLikesHandler}
+							onReset={this.resetLikesHandler}
+						/>
+					</div>
 				</main>
 			</React.Fragment>
 		);
